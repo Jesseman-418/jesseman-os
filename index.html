@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Jesseman OS — Sprint Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --bg: #0a0a0a; --panel: #111114; --border: #1f1f23; --text: #e4e4e7;
+    --muted: #71717a; --green: #22c55e; --red: #ef4444; --blue: #3b82f6;
+    --amber: #f59e0b; --purple: #a855f7;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 -apple-system, system-ui, sans-serif; }
+  header { padding: 20px 32px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: baseline; }
+  header h1 { margin: 0; font-size: 18px; font-weight: 600; }
+  header .meta { color: var(--muted); font-size: 13px; }
+  main { padding: 24px 32px; max-width: 1400px; margin: 0 auto; }
+  .windows { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .window-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+  .window-card.sprint { border-color: var(--green); }
+  .window-card.cut { border-color: var(--blue); }
+  .window-title { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .window-value { font-size: 22px; font-weight: 700; }
+  .window-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .panel h2 { margin: 0 0 16px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); }
+  .stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .stat { background: #0f0f12; border: 1px solid var(--border); border-radius: 8px; padding: 10px; }
+  .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-value { font-size: 18px; font-weight: 600; margin-top: 4px; }
+  .stat-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .progress { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin: 8px 0 4px; }
+  .progress-bar { height: 100%; background: var(--green); transition: width 0.3s; }
+  .progress-bar.blue { background: var(--blue); }
+  .progress-bar.amber { background: var(--amber); }
+  .progress-bar.red { background: var(--red); }
+  .progress-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
+  .charts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .chart-card { background: #0f0f12; border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+  .chart-title { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .phases { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+  .phase { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px; opacity: 0.5; }
+  .phase.active { opacity: 1; border-color: var(--green); box-shadow: 0 0 0 1px var(--green); }
+  .phase.done { opacity: 0.7; border-color: var(--muted); }
+  .phase-name { font-weight: 600; margin-bottom: 4px; }
+  .phase-range { font-size: 12px; color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td.notes { color: var(--muted); font-size: 12px; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .empty { text-align: center; color: var(--muted); padding: 32px; }
+  code { background: var(--border); padding: 2px 6px; border-radius: 4px; font-family: ui-monospace, monospace; }
+  .big { font-size: 30px; font-weight: 700; }
+  .target { color: var(--muted); font-size: 13px; }
+  .pill { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  /* Workout tab */
+  .workout-tab { background: var(--panel); border: 1px solid var(--amber); border-radius: 12px; margin-bottom: 24px; overflow: hidden; }
+  .workout-tab summary { list-style: none; cursor: pointer; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; background: rgba(245, 158, 11, 0.08); }
+  .workout-tab summary::-webkit-details-marker { display: none; }
+  .workout-tab[open] summary { border-bottom: 1px solid var(--border); }
+  .wo-summary-day { font-weight: 700; font-size: 16px; color: var(--amber); }
+  .wo-summary-split { font-size: 14px; color: var(--text); flex: 1; margin-left: 12px; }
+  .wo-summary-hint { font-size: 11px; color: var(--muted); }
+  .wo-body { padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .wo-body h3 { margin: 0 0 12px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); }
+  .wo-section { background: #0f0f12; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; }
+  .wo-section.lift { border-color: var(--green); }
+  .wo-section.rest { border-color: var(--blue); }
+  .wo-section.nutrition { border-color: var(--purple); }
+  .wo-section-title { font-weight: 600; margin-bottom: 8px; font-size: 13px; }
+  .wo-section-title.knee { color: var(--red); }
+  .wo-list { margin: 0; padding-left: 18px; font-size: 13px; color: var(--text); }
+  .wo-list li { margin-bottom: 3px; }
+  .wo-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 4px; }
+  .wo-table th, .wo-table td { padding: 6px 8px; text-align: left; border-bottom: 1px solid var(--border); }
+  .wo-table th { color: var(--muted); font-weight: 500; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .ex-note { color: var(--muted); font-size: 11px; }
+  @media (max-width: 1024px) {
+    .wo-body { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Jesseman OS — Sprint Dashboard</h1>
+  <div class="meta">Day 1 · 2026-05-22 · 0 entries</div>
+</header>
+<main>
+
+  
+      <details class="workout-tab" open>
+        <summary>
+          <span class="wo-summary-day">Today's Workout · Friday</span>
+          <span class="wo-summary-split">Chest & Triceps (CT)</span>
+          <span class="wo-summary-hint">▼ click to collapse</span>
+        </summary>
+        <div class="wo-body">
+          <div class="wo-am">
+            <h3>AM Block (04:00–06:15 · ~75 min)</h3>
+            
+      <div class="wo-section">
+        <div class="wo-section-title">04:00 — Wake</div>
+        <ul class="wo-list">
+          <li>Water 500 ml + electrolytes</li>
+          <li>Weigh + <code>/log-weight</code></li>
+          <li>Supps: glucosamine + chondroitin + collagen 10g + omega-3</li>
+        </ul>
+      </div>
+      <div class="wo-section">
+        <div class="wo-section-title">05:00 — 5K Run (zone 2, ~28 min)</div>
+        <ul class="wo-list">
+          <li>HR 130–145 bpm · pace 5:30–6:30/km</li>
+          <li>Soft surface preferred · 3 min warm walk, 3 min cool walk</li>
+        </ul>
+      </div>
+      <div class="wo-section">
+        <div class="wo-section-title">05:30 — Core circuit (15 min · 3 rounds · 45s on / 15s rest)</div>
+        <ul class="wo-list">
+          <li>Plank 45s · Side plank R 45s · Side plank L 45s</li>
+          <li>Hollow hold 45s · Dead bug 12/side · Pallof press 12/side</li>
+          <li>Hanging knee raise 12 · Bird-dog 10/side</li>
+        </ul>
+      </div>
+      <div class="wo-section">
+        <div class="wo-section-title">05:45 — Spine + hip mobility (10 min)</div>
+        <ul class="wo-list">
+          <li>Cat-cow 10 · Thread the needle 8/side</li>
+          <li>World's greatest stretch 5/side · 90/90 hip switch 8/side</li>
+          <li>Couch stretch 60s/side · Pigeon 60s/side</li>
+          <li>McKenzie press-up 10 · Hanging decompression 30s × 2</li>
+        </ul>
+      </div>
+      <div class="wo-section">
+        <div class="wo-section-title knee">05:55 — Knee rehab (10 min) — CARTILAGE PROTOCOL</div>
+        <ul class="wo-list">
+          <li><b>Quad sets</b> 20 reps × 2 (contract VMO, knee straight)</li>
+          <li><b>Terminal knee extensions (band)</b> 15 reps × 2</li>
+          <li>Wall sit ≤90° · 30s × 3</li>
+          <li>Step-ups (low box) 10/side × 2</li>
+          <li>Heel slides 15 reps × 2</li>
+          <li>Calf raises 20 × 2 · Tibialis raises 15 × 2</li>
+          <li>Ice 10 min if any swelling</li>
+        </ul>
+      </div>
+      <div class="wo-section">
+        <div class="wo-section-title">06:05 — Neck (5 min)</div>
+        <ul class="wo-list">
+          <li>Chin tuck 15 · Neck flex band 12 · Neck ext band 12</li>
+          <li>Side flex R/L 12/side · Levator scap stretch 30s/side · Upper trap stretch 30s/side · Suboccipital release 60s</li>
+        </ul>
+      </div>
+      <div class="wo-section">
+        <div class="wo-section-title">06:10 — Back stretch (5 min)</div>
+        <ul class="wo-list">
+          <li>Child's pose 60s · Lat stretch 60s · Doorway pec 30s/side</li>
+          <li>Supine twist 60s/side · Cobra 30s × 2 · Hang 30s</li>
+        </ul>
+      </div>
+    
+          </div>
+          <div class="wo-pm">
+            <h3>PM + Micros</h3>
+            
+      <div class="wo-section">
+        <div class="wo-section-title">Micro-bursts × 3 (10:30 · 15:00 · 20:00)</div>
+        <ul class="wo-list">
+          <li>Pushups 50 + Skips 100 + Plank 2 min per burst</li>
+          <li>Daily total target: 150 / 300 / 6 min</li>
+        </ul>
+      </div>
+    
+            
+          <div class="wo-section lift">
+            <div class="wo-section-title">16:00 — PM Lift · Chest & Triceps (90 min)</div>
+            <table class="wo-table">
+              <thead><tr><th>#</th><th>Exercise</th><th>Sets × Reps</th><th>Notes</th></tr></thead>
+              <tbody><tr>
+              <td>1</td>
+              <td>Bench press (BB or DB)</td>
+              <td><b>4 × 6–8</b></td>
+              <td class="ex-note">flat, full ROM</td>
+            </tr><tr>
+              <td>2</td>
+              <td>Incline DB press</td>
+              <td><b>4 × 8–10</b></td>
+              <td class="ex-note">30° incline</td>
+            </tr><tr>
+              <td>3</td>
+              <td>Weighted dip</td>
+              <td><b>3 × 8</b></td>
+              <td class="ex-note">lean forward for chest</td>
+            </tr><tr>
+              <td>4</td>
+              <td>Cable fly (high to low)</td>
+              <td><b>3 × 12</b></td>
+              <td class="ex-note">squeeze 1s at midline</td>
+            </tr><tr>
+              <td>5</td>
+              <td>Push-up to failure</td>
+              <td><b>1 × max</b></td>
+              <td class="ex-note">finisher</td>
+            </tr><tr>
+              <td>6</td>
+              <td>Close-grip bench</td>
+              <td><b>3 × 8</b></td>
+              <td class="ex-note">triceps focus</td>
+            </tr><tr>
+              <td>7</td>
+              <td>Skull crusher (EZ bar)</td>
+              <td><b>3 × 10</b></td>
+              <td class="ex-note">strict elbow path</td>
+            </tr><tr>
+              <td>8</td>
+              <td>Triceps rope pushdown</td>
+              <td><b>3 × 12</b></td>
+              <td class="ex-note">spread rope at bottom</td>
+            </tr><tr>
+              <td>9</td>
+              <td>Overhead triceps extension</td>
+              <td><b>3 × 12</b></td>
+              <td class="ex-note">full stretch at top</td>
+            </tr><tr>
+              <td>10</td>
+              <td>Wrist curl (forearm)</td>
+              <td><b>3 × 15</b></td>
+              <td class="ex-note"></td>
+            </tr><tr>
+              <td>11</td>
+              <td>Reverse wrist curl (forearm)</td>
+              <td><b>3 × 15</b></td>
+              <td class="ex-note"></td>
+            </tr></tbody>
+            </table>
+            <div class="wo-section-title" style="margin-top:12px;">+ Finisher (7 min)</div>
+            <ul class="wo-list">
+              <li>Neck work 5 min · Back stretch 5 min</li>
+              <li>Log every set to <code>tracks/health/lift-log.md</code></li>
+            </ul>
+          </div>
+        
+            
+      <div class="wo-section nutrition">
+        <div class="wo-section-title">Meals (IF window 13:15–19:00 · target 1,500 kcal · 191g protein)</div>
+        <ul class="wo-list">
+          <li><b>13:15 Meal 1:</b> 4 eggs + 100g paneer + 1 cup moong dal — 500 kcal, 50g protein</li>
+          <li><b>15:15 Pre-lift:</b> whey 30g + banana — 250 kcal, 30g protein</li>
+          <li><b>18:30 Meal 2:</b> 200g chicken/fish + spinach + 1 tbsp ghee — 700 kcal, 110g protein</li>
+          <li><b>19:00:</b> window closes. Water/tea only.</li>
+        </ul>
+      </div>
+    
+          </div>
+        </div>
+      </details>
+    
+
+  <div class="windows">
+    <div class="window-card sprint">
+      <div class="window-title">Business sprint — 3 clients by 2026-06-15</div>
+      <div class="window-value">0/3 signed · $0 MRR</div>
+      <div class="window-sub">24 days left · 0/768 DMs · 0/30 rewrites</div>
+      <div class="progress" style="margin-top: 10px;"><div class="progress-bar" style="width: 0.0%"></div></div>
+    </div>
+    <div class="window-card cut">
+      <div class="window-title">Body cut — 87→70 kg by 2026-08-06 · milestone 77 kg by 2026-06-15</div>
+      <div class="window-value">87 kg · <span class="pill" style="background: #3b82f633; color: #3b82f6;">on track</span></div>
+      <div class="window-sub">milestone: 24d left · 0.0/10 kg (0%) · final: 76d left · BF 35%</div>
+      <div class="progress" style="margin-top: 10px;"><div class="progress-bar blue" style="width: 0.0%"></div></div>
+    </div>
+  </div>
+
+  <div class="phases"><div class="phase active ">
+          <div class="phase-name">Sprint 1 — Foundation</div>
+          <div class="phase-range">Day 1–8 · 0 retainers · 256 DMs cum</div>
+        </div><div class="phase  ">
+          <div class="phase-name">Sprint 2 — Convert</div>
+          <div class="phase-range">Day 9–16 · 1 retainer · 512 DMs cum</div>
+        </div><div class="phase  ">
+          <div class="phase-name">Sprint 3 — Close 3</div>
+          <div class="phase-range">Day 17–24 · 3 retainers · 768 DMs cum</div>
+        </div></div>
+
+  <div class="hero">
+
+    <div class="panel">
+      <h2>Business — Stratum Content sprint</h2>
+      <div style="margin-bottom: 16px;">
+        <div class="stat-label">Retainers signed</div>
+        <div class="big" style="color: var(--green);">0 / 3</div>
+        <div class="target">MRR: $0 · floor $4,500 at 3× Lite</div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+      <div class="stat-label">DMs sent today</div>
+      <div class="stat-value">0</div>
+      <div class="stat-sub">target 32/day</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">DMs cumulative</div>
+      <div class="stat-value">0 / 768</div>
+      <div class="stat-sub">0% of sprint</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">Replies today</div>
+      <div class="stat-value">0</div>
+      <div class="stat-sub">total 0</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">Rewrites today</div>
+      <div class="stat-value">0</div>
+      <div class="stat-sub">target 2/day</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">Rewrites cum</div>
+      <div class="stat-value">0 / 30</div>
+      <div class="stat-sub">0% gate</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">Voice memos cum</div>
+      <div class="stat-value">0</div>
+      <div class="stat-sub">score 96-100 only</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">Calls booked</div>
+      <div class="stat-value">0</div>
+      <div class="stat-sub">cumulative</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">DM streak ≥32</div>
+      <div class="stat-value">0d</div>
+      <div class="stat-sub">consecutive at-target</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">Reply rate</div>
+      <div class="stat-value">0.0%</div>
+      <div class="stat-sub">target 10%</div>
+    </div>
+      </div>
+
+      <div class="charts">
+        <div class="chart-card">
+          <div class="chart-title">Retainers cumulative</div>
+          <svg width="240" height="48"></svg>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">MRR cumulative</div>
+          <svg width="240" height="48"></svg>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">DMs sent daily</div>
+          <svg width="240" height="48"></svg>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">DMs cumulative</div>
+          <svg width="240" height="48"></svg>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Rewrites cumulative</div>
+          <svg width="240" height="48"></svg>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Sprint window</div>
+          <div style="font-size: 26px; font-weight: 700; color: var(--green);">4%</div>
+          <div class="progress" style="margin-top: 8px;"><div class="progress-bar" style="width: 4.2%"></div></div>
+          <div class="progress-label" style="margin-top: 4px;"><span>Day 1 / 24</span><span>24 days left</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Health — 87→77 kg by 2026-06-15 (mid) · 70 kg by 2026-08-06 (end)</h2>
+      <div style="margin-bottom: 16px;">
+        <div class="stat-label">Weight (latest)</div>
+        <div class="big" style="color: var(--blue);">87 kg</div>
+        <div class="target">milestone 77 kg in 24d · final 70 kg in 76d · 0.0 kg down · on track</div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+      <div class="stat-label">Today's deficit</div>
+      <div class="stat-value">+0 kcal</div>
+      <div class="stat-sub">target +1,700</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">7-day avg deficit</div>
+      <div class="stat-value">+0 kcal</div>
+      <div class="stat-sub">target +1,700</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">Today's intake</div>
+      <div class="stat-value">0 kcal</div>
+      <div class="stat-sub">target 1500</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">Protein today</div>
+      <div class="stat-value">0 g</div>
+      <div class="stat-sub">target 191 g</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">Body fat %</div>
+      <div class="stat-value">35%</div>
+      <div class="stat-sub">target 18%</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">Steps today</div>
+      <div class="stat-value">0</div>
+      <div class="stat-sub">floor 12,000</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">AM 5K run</div>
+      <div class="stat-value">·</div>
+      <div class="stat-sub">streak 0d</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">AM gym block</div>
+      <div class="stat-value">·</div>
+      <div class="stat-sub">streak 0d</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">PM lift</div>
+      <div class="stat-value">·</div>
+      <div class="stat-sub">streak 0d · -</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">Pushups today</div>
+      <div class="stat-value">0 / 150</div>
+      <div class="stat-sub">cum 0</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">Skips today</div>
+      <div class="stat-value">0 / 300</div>
+      <div class="stat-sub">cum 0</div>
+    </div>
+        <div class="stat">
+      <div class="stat-label">Plank today</div>
+      <div class="stat-value">0 / 6 min</div>
+      <div class="stat-sub">cum 0 min</div>
+    </div>
+      </div>
+
+      <div class="charts">
+        <div class="chart-card">
+          <div class="chart-title">Weight (kg)</div>
+          <svg width="240" height="48"></svg>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Body fat %</div>
+          <svg width="240" height="48"></svg>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Daily kcal intake</div>
+          <svg width="240" height="48"></svg>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Daily deficit</div>
+          <svg width="240" height="48"></svg>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Protein (g/day)</div>
+          <svg width="240" height="48"></svg>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Pushups daily</div>
+          <svg width="240" height="48"></svg>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Skips daily</div>
+          <svg width="240" height="48"></svg>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Cut window</div>
+          <div style="font-size: 26px; font-weight: 700; color: var(--blue);">1%</div>
+          <div class="progress" style="margin-top: 8px;"><div class="progress-bar blue" style="width: 1.3%"></div></div>
+          <div class="progress-label" style="margin-top: 4px;"><span>Day 1 / 75</span><span>76 days left</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Last 14 days</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th><th>Date</th><th>DMs</th><th>Reply</th><th>Rewrite</th><th>Retain</th><th>MRR</th>
+          <th>Wt</th><th>Kcal</th><th>Δ</th><th>Protein</th><th>Run</th><th>Gym</th><th>Lift</th><th>Push/Skip/Plk</th><th>Notes</th>
+        </tr>
+      </thead>
+      <tbody><tr><td colspan="16" class="empty">no entries yet — run <code>/log-day</code> or <code>python3 reference/dashboard/dash.py log</code></td></tr></tbody>
+    </table>
+  </div>
+
+  <div style="margin-top: 24px; color: var(--muted); font-size: 12px; text-align: center;">
+    log via Claude <code>/log-day</code> · or terminal <code>python3 reference/dashboard/dash.py log</code>
+  </div>
+
+</main>
+</body>
+</html>

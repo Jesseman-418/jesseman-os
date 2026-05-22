@@ -1,0 +1,39 @@
+{
+  "start_date": "2026-05-23",
+  "sprint_end_date": "2026-06-15",
+  "cut_end_date": "2026-08-06",
+  "milestone_date": "2026-06-15",
+  "targets": {
+    "sprint_days": 24,
+    "sprint_retainers": 3,
+    "sprint_mrr_floor": 4500,
+    "sprint_dms_total": 768,
+    "sprint_dms_daily": 32,
+    "sprint_rewrites_total": 30,
+    "sprint_rewrites_daily": 2,
+    "cut_days": 75,
+    "weight_start_kg": 87,
+    "weight_milestone_kg": 77,
+    "weight_target_kg": 70,
+    "bf_start_pct": 35,
+    "bf_target_pct": 18,
+    "intake_target_kcal": 1500,
+    "intake_floor_kcal": 1300,
+    "protein_target_g": 191,
+    "fat_target_g": 60,
+    "carbs_target_g": 79,
+    "tdee_estimated": 3200,
+    "steps_floor": 12000,
+    "deficit_target_daily": 1700,
+    "pushups_daily": 150,
+    "skips_daily": 300,
+    "plank_daily_min": 6,
+    "run_distance_km": 5
+  },
+  "phases": [
+    {"name": "Sprint 1 — Foundation", "start_day": 1, "end_day": 8, "retainers_target": 0, "dms_target_cum": 256, "rewrites_target_cum": 16},
+    {"name": "Sprint 2 — Convert", "start_day": 9, "end_day": 16, "retainers_target": 1, "dms_target_cum": 512, "rewrites_target_cum": 32},
+    {"name": "Sprint 3 — Close 3", "start_day": 17, "end_day": 24, "retainers_target": 3, "dms_target_cum": 768, "rewrites_target_cum": 48}
+  ],
+  "days": []
+}
