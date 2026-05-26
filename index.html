@@ -85,15 +85,15 @@
 <body>
 <header>
   <h1>Jesseman OS — Sprint Dashboard</h1>
-  <div class="meta">Day 1 · 2026-05-22 · 0 entries</div>
+  <div class="meta">Day <span id="m-day">4</span> · <span id="m-date">2026-05-26</span> · 1 entries</div>
 </header>
 <main>
 
   
       <details class="workout-tab" open>
         <summary>
-          <span class="wo-summary-day">Today's Workout · Friday</span>
-          <span class="wo-summary-split">Chest & Triceps (CT)</span>
+          <span class="wo-summary-day" id="wo-day">Today's Workout · Tuesday</span>
+          <span class="wo-summary-split" id="wo-split">Chest & Triceps (CT)</span>
           <span class="wo-summary-hint">▼ click to collapse</span>
         </summary>
         <div class="wo-body">
@@ -171,7 +171,7 @@
         </ul>
       </div>
     
-            
+            <div id="wo-pm-dynamic">
           <div class="wo-section lift">
             <div class="wo-section-title">16:00 — PM Lift · Chest & Triceps (90 min)</div>
             <table class="wo-table">
@@ -239,7 +239,7 @@
               <li>Log every set to <code>tracks/health/lift-log.md</code></li>
             </ul>
           </div>
-        
+        </div>
             
       <div class="wo-section nutrition">
         <div class="wo-section-title">Meals (IF window 13:15–19:00 · target 1,500 kcal · 191g protein)</div>
@@ -260,24 +260,24 @@
     <div class="window-card sprint">
       <div class="window-title">Business sprint — 3 clients by 2026-06-15</div>
       <div class="window-value">0/3 signed · $0 MRR</div>
-      <div class="window-sub">24 days left · 0/768 DMs · 0/30 rewrites</div>
+      <div class="window-sub"><span id="sprint-left">20</span> days left · 0/768 DMs · 0/30 rewrites</div>
       <div class="progress" style="margin-top: 10px;"><div class="progress-bar" style="width: 0.0%"></div></div>
     </div>
     <div class="window-card cut">
       <div class="window-title">Body cut — 87→70 kg by 2026-08-06 · milestone 77 kg by 2026-06-15</div>
-      <div class="window-value">87 kg · <span class="pill" style="background: #3b82f633; color: #3b82f6;">on track</span></div>
-      <div class="window-sub">milestone: 24d left · 0.0/10 kg (0%) · final: 76d left · BF 35%</div>
-      <div class="progress" style="margin-top: 10px;"><div class="progress-bar blue" style="width: 0.0%"></div></div>
+      <div class="window-value">86.0 kg · <span class="pill" id="ontrack-pill" style="background: #ef444433; color: #ef4444;">behind</span></div>
+      <div class="window-sub">milestone: <span id="ms-left">20</span>d left · 1.0/10 kg (10%) · final: <span id="cut-left">72</span>d left · BF 35%</div>
+      <div class="progress" style="margin-top: 10px;"><div class="progress-bar blue" style="width: 5.9%"></div></div>
     </div>
   </div>
 
-  <div class="phases"><div class="phase active ">
+  <div class="phases"><div class="phase active " id="phase-0">
           <div class="phase-name">Sprint 1 — Foundation</div>
           <div class="phase-range">Day 1–8 · 0 retainers · 256 DMs cum</div>
-        </div><div class="phase  ">
+        </div><div class="phase  " id="phase-1">
           <div class="phase-name">Sprint 2 — Convert</div>
           <div class="phase-range">Day 9–16 · 1 retainer · 512 DMs cum</div>
-        </div><div class="phase  ">
+        </div><div class="phase  " id="phase-2">
           <div class="phase-name">Sprint 3 — Close 3</div>
           <div class="phase-range">Day 17–24 · 3 retainers · 768 DMs cum</div>
         </div></div>
@@ -343,29 +343,49 @@
       <div class="charts">
         <div class="chart-card">
           <div class="chart-title">Retainers cumulative</div>
-          <svg width="240" height="48"></svg>
+          <svg width="240" height="48" viewBox="0 0 240 48">
+      <line x1="0" y1="4.0" x2="240" y2="4.0" stroke="#64748b" stroke-dasharray="3,3" stroke-width="1" />
+      <polyline points="4.0,44.0 236.0,44.0" fill="none" stroke="#22c55e" stroke-width="2" />
+      <circle cx="236.0" cy="44.0" r="3" fill="#22c55e" />
+    </svg>
         </div>
         <div class="chart-card">
           <div class="chart-title">MRR cumulative</div>
-          <svg width="240" height="48"></svg>
+          <svg width="240" height="48" viewBox="0 0 240 48">
+      <line x1="0" y1="4.0" x2="240" y2="4.0" stroke="#64748b" stroke-dasharray="3,3" stroke-width="1" />
+      <polyline points="4.0,44.0 236.0,44.0" fill="none" stroke="#22c55e" stroke-width="2" />
+      <circle cx="236.0" cy="44.0" r="3" fill="#22c55e" />
+    </svg>
         </div>
         <div class="chart-card">
           <div class="chart-title">DMs sent daily</div>
-          <svg width="240" height="48"></svg>
+          <svg width="240" height="48" viewBox="0 0 240 48">
+      <line x1="0" y1="4.0" x2="240" y2="4.0" stroke="#64748b" stroke-dasharray="3,3" stroke-width="1" />
+      <polyline points="4.0,44.0 236.0,44.0" fill="none" stroke="#a855f7" stroke-width="2" />
+      <circle cx="236.0" cy="44.0" r="3" fill="#a855f7" />
+    </svg>
         </div>
         <div class="chart-card">
           <div class="chart-title">DMs cumulative</div>
-          <svg width="240" height="48"></svg>
+          <svg width="240" height="48" viewBox="0 0 240 48">
+      <line x1="0" y1="4.0" x2="240" y2="4.0" stroke="#64748b" stroke-dasharray="3,3" stroke-width="1" />
+      <polyline points="4.0,44.0 236.0,44.0" fill="none" stroke="#a855f7" stroke-width="2" />
+      <circle cx="236.0" cy="44.0" r="3" fill="#a855f7" />
+    </svg>
         </div>
         <div class="chart-card">
           <div class="chart-title">Rewrites cumulative</div>
-          <svg width="240" height="48"></svg>
+          <svg width="240" height="48" viewBox="0 0 240 48">
+      <line x1="0" y1="4.0" x2="240" y2="4.0" stroke="#64748b" stroke-dasharray="3,3" stroke-width="1" />
+      <polyline points="4.0,44.0 236.0,44.0" fill="none" stroke="#f59e0b" stroke-width="2" />
+      <circle cx="236.0" cy="44.0" r="3" fill="#f59e0b" />
+    </svg>
         </div>
         <div class="chart-card">
           <div class="chart-title">Sprint window</div>
-          <div style="font-size: 26px; font-weight: 700; color: var(--green);">4%</div>
-          <div class="progress" style="margin-top: 8px;"><div class="progress-bar" style="width: 4.2%"></div></div>
-          <div class="progress-label" style="margin-top: 4px;"><span>Day 1 / 24</span><span>24 days left</span></div>
+          <div style="font-size: 26px; font-weight: 700; color: var(--green);" id="sprint-pct-num">17%</div>
+          <div class="progress" style="margin-top: 8px;"><div class="progress-bar" id="sprint-pct-bar" style="width: 16.7%"></div></div>
+          <div class="progress-label" style="margin-top: 4px;"><span id="sprint-day-count">Day 4 / 24</span><span id="sprint-day-left">20 days left</span></div>
         </div>
       </div>
     </div>
@@ -374,8 +394,8 @@
       <h2>Health — 87→77 kg by 2026-06-15 (mid) · 70 kg by 2026-08-06 (end)</h2>
       <div style="margin-bottom: 16px;">
         <div class="stat-label">Weight (latest)</div>
-        <div class="big" style="color: var(--blue);">87 kg</div>
-        <div class="target">milestone 77 kg in 24d · final 70 kg in 76d · 0.0 kg down · on track</div>
+        <div class="big" style="color: var(--blue);">86.0 kg</div>
+        <div class="target">milestone 77 kg in <span id="h-ms-left">20</span>d · final 70 kg in <span id="h-cut-left">72</span>d · 1.0 kg down · <span id="h-ontrack">behind</span></div>
       </div>
 
       <div class="stats">
@@ -422,7 +442,7 @@
         <div class="stat">
       <div class="stat-label">PM lift</div>
       <div class="stat-value">·</div>
-      <div class="stat-sub">streak 0d · -</div>
+      <div class="stat-sub">streak 0d · </div>
     </div>
         <div class="stat">
       <div class="stat-label">Pushups today</div>
@@ -444,37 +464,65 @@
       <div class="charts">
         <div class="chart-card">
           <div class="chart-title">Weight (kg)</div>
-          <svg width="240" height="48"></svg>
+          <svg width="240" height="48" viewBox="0 0 240 48">
+      <line x1="0" y1="44.0" x2="240" y2="44.0" stroke="#64748b" stroke-dasharray="3,3" stroke-width="1" />
+      <polyline points="4.0,4.0 236.0,4.0" fill="none" stroke="#3b82f6" stroke-width="2" />
+      <circle cx="236.0" cy="4.0" r="3" fill="#3b82f6" />
+    </svg>
         </div>
         <div class="chart-card">
           <div class="chart-title">Body fat %</div>
-          <svg width="240" height="48"></svg>
+          <svg width="240" height="48" viewBox="0 0 240 48">
+      <line x1="0" y1="44.0" x2="240" y2="44.0" stroke="#64748b" stroke-dasharray="3,3" stroke-width="1" />
+      <polyline points="4.0,4.0 236.0,4.0" fill="none" stroke="#ef4444" stroke-width="2" />
+      <circle cx="236.0" cy="4.0" r="3" fill="#ef4444" />
+    </svg>
         </div>
         <div class="chart-card">
           <div class="chart-title">Daily kcal intake</div>
-          <svg width="240" height="48"></svg>
+          <svg width="240" height="48" viewBox="0 0 240 48">
+      <line x1="0" y1="4.0" x2="240" y2="4.0" stroke="#64748b" stroke-dasharray="3,3" stroke-width="1" />
+      <polyline points="4.0,44.0 236.0,44.0" fill="none" stroke="#f59e0b" stroke-width="2" />
+      <circle cx="236.0" cy="44.0" r="3" fill="#f59e0b" />
+    </svg>
         </div>
         <div class="chart-card">
           <div class="chart-title">Daily deficit</div>
-          <svg width="240" height="48"></svg>
+          <svg width="240" height="48" viewBox="0 0 240 48">
+      <line x1="0" y1="4.0" x2="240" y2="4.0" stroke="#64748b" stroke-dasharray="3,3" stroke-width="1" />
+      <polyline points="4.0,44.0 236.0,44.0" fill="none" stroke="#22c55e" stroke-width="2" />
+      <circle cx="236.0" cy="44.0" r="3" fill="#22c55e" />
+    </svg>
         </div>
         <div class="chart-card">
           <div class="chart-title">Protein (g/day)</div>
-          <svg width="240" height="48"></svg>
+          <svg width="240" height="48" viewBox="0 0 240 48">
+      <line x1="0" y1="4.0" x2="240" y2="4.0" stroke="#64748b" stroke-dasharray="3,3" stroke-width="1" />
+      <polyline points="4.0,44.0 236.0,44.0" fill="none" stroke="#22c55e" stroke-width="2" />
+      <circle cx="236.0" cy="44.0" r="3" fill="#22c55e" />
+    </svg>
         </div>
         <div class="chart-card">
           <div class="chart-title">Pushups daily</div>
-          <svg width="240" height="48"></svg>
+          <svg width="240" height="48" viewBox="0 0 240 48">
+      <line x1="0" y1="4.0" x2="240" y2="4.0" stroke="#64748b" stroke-dasharray="3,3" stroke-width="1" />
+      <polyline points="4.0,44.0 236.0,44.0" fill="none" stroke="#f59e0b" stroke-width="2" />
+      <circle cx="236.0" cy="44.0" r="3" fill="#f59e0b" />
+    </svg>
         </div>
         <div class="chart-card">
           <div class="chart-title">Skips daily</div>
-          <svg width="240" height="48"></svg>
+          <svg width="240" height="48" viewBox="0 0 240 48">
+      <line x1="0" y1="4.0" x2="240" y2="4.0" stroke="#64748b" stroke-dasharray="3,3" stroke-width="1" />
+      <polyline points="4.0,44.0 236.0,44.0" fill="none" stroke="#a855f7" stroke-width="2" />
+      <circle cx="236.0" cy="44.0" r="3" fill="#a855f7" />
+    </svg>
         </div>
         <div class="chart-card">
           <div class="chart-title">Cut window</div>
-          <div style="font-size: 26px; font-weight: 700; color: var(--blue);">1%</div>
-          <div class="progress" style="margin-top: 8px;"><div class="progress-bar blue" style="width: 1.3%"></div></div>
-          <div class="progress-label" style="margin-top: 4px;"><span>Day 1 / 75</span><span>76 days left</span></div>
+          <div style="font-size: 26px; font-weight: 700; color: var(--blue);" id="cut-pct-num">5%</div>
+          <div class="progress" style="margin-top: 8px;"><div class="progress-bar blue" id="cut-pct-bar" style="width: 5.3%"></div></div>
+          <div class="progress-label" style="margin-top: 4px;"><span id="cut-day-count">Day 4 / 75</span><span id="cut-day-left">72 days left</span></div>
         </div>
       </div>
     </div>
@@ -489,7 +537,24 @@
           <th>Wt</th><th>Kcal</th><th>Δ</th><th>Protein</th><th>Run</th><th>Gym</th><th>Lift</th><th>Push/Skip/Plk</th><th>Notes</th>
         </tr>
       </thead>
-      <tbody><tr><td colspan="16" class="empty">no entries yet — run <code>/log-day</code> or <code>python3 reference/dashboard/dash.py log</code></td></tr></tbody>
+      <tbody><tr>
+          <td>4</td>
+          <td>2026-05-26</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>$0</td>
+          <td>86.0</td>
+          <td>0</td>
+          <td>+0</td>
+          <td>0g</td>
+          <td>·</td>
+          <td>·</td>
+          <td>· </td>
+          <td>0/0/0m</td>
+          <td class="notes"></td>
+        </tr></tbody>
     </table>
   </div>
 
@@ -498,5 +563,67 @@
   </div>
 
 </main>
+<script>
+/* Client-side daily refresh: recomputes every date/day-dependent value on page
+   open, so the dashboard is always current without rebuilding. Build-time HTML
+   is the no-JS fallback. Mirrors the Python date math in build_html(). */
+(function () {
+  var D = {"start_date": "2026-05-23", "sprint_end_date": "2026-06-15", "cut_end_date": "2026-08-06", "milestone_date": "2026-06-15", "targets": {"sprint_days": 24, "cut_days": 75, "weight_start_kg": 87, "weight_milestone_kg": 77, "weight_target_kg": 70}, "latest_weight": 86.0, "phases": [{"start_day": 1, "end_day": 8}, {"start_day": 9, "end_day": 16}, {"start_day": 17, "end_day": 24}], "lift_splits": {"BB": {"name": "Back & Biceps", "exercises": [["Pull-up (or assisted)", "4 \u00d7 6\u20138", "wide grip, full ROM"], ["Bent-over barbell row", "4 \u00d7 8", "hinge at hip, neutral spine"], ["Single-arm DB row", "3 \u00d7 10/side", "knee on bench"], ["Lat pulldown", "3 \u00d7 12", "squeeze at bottom"], ["Face pull", "3 \u00d7 15", "high elbows, rear delt cue"], ["Barbell curl", "3 \u00d7 10", "strict"], ["Hammer curl", "3 \u00d7 12", "neutral grip"], ["Concentration curl", "2 \u00d7 12/side", "peak contraction"], ["Wrist curl (forearm)", "3 \u00d7 15", "flexors"], ["Reverse wrist curl (forearm)", "3 \u00d7 15", "extensors"], ["Farmer's hold (forearm)", "3 \u00d7 30s", "grip endurance"]]}, "CT": {"name": "Chest & Triceps", "exercises": [["Bench press (BB or DB)", "4 \u00d7 6\u20138", "flat, full ROM"], ["Incline DB press", "4 \u00d7 8\u201310", "30\u00b0 incline"], ["Weighted dip", "3 \u00d7 8", "lean forward for chest"], ["Cable fly (high to low)", "3 \u00d7 12", "squeeze 1s at midline"], ["Push-up to failure", "1 \u00d7 max", "finisher"], ["Close-grip bench", "3 \u00d7 8", "triceps focus"], ["Skull crusher (EZ bar)", "3 \u00d7 10", "strict elbow path"], ["Triceps rope pushdown", "3 \u00d7 12", "spread rope at bottom"], ["Overhead triceps extension", "3 \u00d7 12", "full stretch at top"], ["Wrist curl (forearm)", "3 \u00d7 15", ""], ["Reverse wrist curl (forearm)", "3 \u00d7 15", ""]]}, "SA": {"name": "Shoulder & Abs", "exercises": [["Overhead press (BB or DB)", "4 \u00d7 6\u20138", "strict, no leg drive"], ["Arnold press", "3 \u00d7 10", "full rotation"], ["Lateral raise", "4 \u00d7 12", "slight lean, slow eccentric"], ["Rear delt fly", "4 \u00d7 15", "high elbows"], ["Upright row (wide grip)", "3 \u00d7 12", "skip if shoulder pain"], ["Shrug (DB or BB)", "3 \u00d7 15", "hold 1s at top"], ["Cable woodchopper", "3 \u00d7 12/side", "rotational core"], ["Hanging knee raise", "3 \u00d7 12", "slow eccentric"], ["Cable crunch", "3 \u00d7 15", "rounded spine OK"], ["Plank (weighted if able)", "3 \u00d7 60s", ""], ["Russian twist", "3 \u00d7 20", ""], ["Direct neck work", "5 min", "heaviest neck day"], ["Wrist curl (forearm)", "3 \u00d7 15", ""]]}}, "weekday_lift": {"0": "BB", "1": "CT", "2": "SA", "3": "BB", "4": "CT", "5": "SA", "6": "REST"}};
+  var DAY = 86400000;
+  function pd(s) { var p = s.split("-").map(Number); return new Date(p[0], p[1] - 1, p[2]); }
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+  var start = pd(D.start_date), sEnd = pd(D.sprint_end_date), cEnd = pd(D.cut_end_date), msd = pd(D.milestone_date);
+  var cur = Math.max(1, Math.round((today - start) / DAY) + 1);
+  function left(x) { return Math.max(0, Math.round((x - today) / DAY)); }
+  var sLeft = left(sEnd), cLeft = left(cEnd), msLeft = left(msd);
+  var t = D.targets;
+  var sPct = Math.min(100, cur / t.sprint_days * 100);
+  var cPct = Math.min(100, cur / t.cut_days * 100);
+
+  // on-track vs milestone-then-target glide path (mirrors Python)
+  var sw = t.weight_start_kg, mw = t.weight_milestone_kg, tw = t.weight_target_kg, w = D.latest_weight;
+  var msTotal = Math.round((msd - start) / DAY) + 1, exp;
+  if (cur <= msTotal) { exp = (cur / msTotal) * (sw - mw); }
+  else { var dp = cur - msTotal, pw = t.cut_days - msTotal; exp = pw > 0 ? (sw - mw) + (dp / pw) * (mw - tw) : (sw - mw); }
+  var del = (sw - w) - exp, label, color;
+  if (Math.abs(del) < 0.5) { label = "on track"; color = "#3b82f6"; }
+  else if (del > 0) { label = "ahead"; color = "#22c55e"; }
+  else { label = "behind"; color = "#ef4444"; }
+
+  function set(id, v) { var e = document.getElementById(id); if (e) e.textContent = v; }
+  function w_(id, v) { var e = document.getElementById(id); if (e) e.style.width = v; }
+  var iso = today.getFullYear() + "-" + String(today.getMonth() + 1).padStart(2, "0") + "-" + String(today.getDate()).padStart(2, "0");
+
+  set("m-day", cur); set("m-date", iso);
+  set("sprint-left", sLeft); set("ms-left", msLeft); set("cut-left", cLeft);
+  set("sprint-pct-num", sPct.toFixed(0) + "%"); set("sprint-day-count", "Day " + cur + " / " + t.sprint_days); set("sprint-day-left", sLeft + " days left");
+  set("cut-pct-num", cPct.toFixed(0) + "%"); set("cut-day-count", "Day " + cur + " / " + t.cut_days); set("cut-day-left", cLeft + " days left");
+  set("h-ms-left", msLeft + "d"); set("h-cut-left", cLeft + "d"); set("h-ontrack", label);
+  w_("sprint-pct-bar", sPct.toFixed(1) + "%"); w_("cut-pct-bar", cPct.toFixed(1) + "%");
+  var pill = document.getElementById("ontrack-pill");
+  if (pill) { pill.textContent = label; pill.style.background = color + "33"; pill.style.color = color; }
+
+  D.phases.forEach(function (p, i) {
+    var e = document.getElementById("phase-" + i); if (!e) return;
+    e.className = "phase " + (p.start_day <= cur && cur <= p.end_day ? "active" : "") + " " + (cur > p.end_day ? "done" : "");
+  });
+
+  // today's workout
+  var code = D.weekday_lift[(today.getDay() + 6) % 7];
+  set("wo-day", "Today's Workout · " + today.toLocaleDateString("en-US", { weekday: "long" }));
+  var splitLabel, pmHtml;
+  if (code === "REST") {
+    splitLabel = "REST · long walk + mobility";
+    pmHtml = '<div class="wo-section rest"><div class="wo-section-title">PM — REST DAY</div><ul class="wo-list"><li>Long walk 90 min (zone 2)</li><li>Full mobility 30 min (extended Block 3)</li><li>Knee rehab block again</li><li>No lift</li></ul></div>';
+  } else {
+    var sp = D.lift_splits[code], rows = "";
+    sp.exercises.forEach(function (e, i) { rows += '<tr><td>' + (i + 1) + '</td><td>' + e[0] + '</td><td><b>' + e[1] + '</b></td><td class="ex-note">' + e[2] + '</td></tr>'; });
+    splitLabel = sp.name + " (" + code + ")";
+    pmHtml = '<div class="wo-section lift"><div class="wo-section-title">16:00 — PM Lift · ' + sp.name + ' (90 min)</div><table class="wo-table"><thead><tr><th>#</th><th>Exercise</th><th>Sets × Reps</th><th>Notes</th></tr></thead><tbody>' + rows + '</tbody></table><div class="wo-section-title" style="margin-top:12px;">+ Finisher (7 min)</div><ul class="wo-list"><li>Neck work 5 min · Back stretch 5 min</li><li>Log every set to <code>tracks/health/lift-log.md</code></li></ul></div>';
+  }
+  set("wo-split", splitLabel);
+  var pm = document.getElementById("wo-pm-dynamic"); if (pm) pm.innerHTML = pmHtml;
+})();
+</script>
 </body>
 </html>

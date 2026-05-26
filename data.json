@@ -31,9 +31,61 @@
     "run_distance_km": 5
   },
   "phases": [
-    {"name": "Sprint 1 — Foundation", "start_day": 1, "end_day": 8, "retainers_target": 0, "dms_target_cum": 256, "rewrites_target_cum": 16},
-    {"name": "Sprint 2 — Convert", "start_day": 9, "end_day": 16, "retainers_target": 1, "dms_target_cum": 512, "rewrites_target_cum": 32},
-    {"name": "Sprint 3 — Close 3", "start_day": 17, "end_day": 24, "retainers_target": 3, "dms_target_cum": 768, "rewrites_target_cum": 48}
+    {
+      "name": "Sprint 1 \u2014 Foundation",
+      "start_day": 1,
+      "end_day": 8,
+      "retainers_target": 0,
+      "dms_target_cum": 256,
+      "rewrites_target_cum": 16
+    },
+    {
+      "name": "Sprint 2 \u2014 Convert",
+      "start_day": 9,
+      "end_day": 16,
+      "retainers_target": 1,
+      "dms_target_cum": 512,
+      "rewrites_target_cum": 32
+    },
+    {
+      "name": "Sprint 3 \u2014 Close 3",
+      "start_day": 17,
+      "end_day": 24,
+      "retainers_target": 3,
+      "dms_target_cum": 768,
+      "rewrites_target_cum": 48
+    }
   ],
-  "days": []
+  "days": [
+    {
+      "date": "2026-05-26",
+      "day_num": 4,
+      "business": {
+        "dms_sent": 0,
+        "replies": 0,
+        "rewrites_delivered": 0,
+        "voice_memos_sent": 0,
+        "calls_booked_cum": 0,
+        "retainers_signed_cum": 0,
+        "mrr_cum": 0
+      },
+      "health": {
+        "weight_kg": 86.0,
+        "bf_pct": 35,
+        "kcal_intake": 0,
+        "protein_g": 0,
+        "steps": 0,
+        "am_run": false,
+        "am_gym": false,
+        "pm_lift": false,
+        "lift_split": "",
+        "pushups": 0,
+        "skips": 0,
+        "plank_min": 0,
+        "mobility": false,
+        "fast_hours": 0
+      },
+      "notes": ""
+    }
+  ]
 }
