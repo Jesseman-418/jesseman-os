@@ -70,7 +70,37 @@
         "mrr_cum": 0
       },
       "health": {
-        "weight_kg": 86.0,
+        "weight_kg": 85.45,
+        "bf_pct": 35,
+        "kcal_intake": 0,
+        "protein_g": 0,
+        "steps": 0,
+        "am_run": true,
+        "am_gym": false,
+        "pm_lift": true,
+        "lift_split": "",
+        "pushups": 0,
+        "skips": 0,
+        "plank_min": 0,
+        "mobility": true,
+        "fast_hours": 0
+      },
+      "notes": ""
+    },
+    {
+      "date": "2026-05-27",
+      "day_num": 5,
+      "business": {
+        "dms_sent": 0,
+        "replies": 0,
+        "rewrites_delivered": 0,
+        "voice_memos_sent": 0,
+        "calls_booked_cum": 0,
+        "retainers_signed_cum": 0,
+        "mrr_cum": 0
+      },
+      "health": {
+        "weight_kg": 85.8,
         "bf_pct": 35,
         "kcal_intake": 0,
         "protein_g": 0,
